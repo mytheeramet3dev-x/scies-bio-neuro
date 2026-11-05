@@ -1,0 +1,21 @@
+[package]
+name = "scies-bio-neuro"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "A high-performance computational neuroscience, biophysical neuron simulation, and brain-bridge modeling toolkit for Rust."
+repository = "https://github.com/mytheeramet3dev-x/scies-bio-neuro"
+keywords = ["neuroscience", "hodgkin-huxley", "izhikevich", "electrophysiology", "simulation"]
+categories = ["science", "simulation"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"], optional = true }
+scies-bio-th = { path = "../scies-bio-th", optional = true }
+
+[features]
+default = []
+serde = ["dep:serde"]
+bio-th = ["dep:scies-bio-th"]
+
+[[example]]
+name = "phoenix_5cm_bridge_demo"
