@@ -18,6 +18,7 @@ scies_bio_neuro::
 ├── signal      — Spike train metrics (ISI, CV, Fano factor, PSTH), LFP forward model, spectral band power
 ├── plasticity  — Bi & Poo (1998) STDP, three-factor dopamine modulation, Turrigiano homeostatic scaling
 ├── develop     — Growth cone chemotropism, myelin Rushton g-ratio optimization, synaptogenesis/pruning
+├── glial       — Glial cell support systems (Astrocytes tripartite synapse, Microglia surveillance, Oligodendrocytes)
 ├── neuro_chem  — Michaelis-Menten transporters (DAT, SERT, EAAT), Nicholson 3D volume transmission
 ├── io          — Electrophysiology recording, voltage traces, CSV serialization, ASCII spike rasters
 └── engine      — Discrete-time simulation engine, clock manager, and current clamp scheduling

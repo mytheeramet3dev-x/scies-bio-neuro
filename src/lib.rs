@@ -29,6 +29,7 @@
 
 pub mod develop;
 pub mod engine;
+pub mod glial;
 pub mod io;
 pub mod ion;
 pub mod network;
@@ -42,6 +43,7 @@ pub mod types;
 // Convenient re-exports of primary types
 pub use develop::{GrowthCone, GuidanceCue, MyelinSheath, SynapticPruner};
 pub use engine::{SimulationClock, SimulationEngine, StimulusPulse};
+pub use glial::{Astrocyte, Microglia, MicrogliaState};
 pub use io::{SpikeEvent, VoltageRecorder};
 pub use ion::{ChannelType, GatingVar, HHChannel, Membrane};
 pub use network::{BrainBridgeInterface, BridgeMode, NeuralNetwork};
@@ -50,7 +52,7 @@ pub use neuron::{AdLifParams, Compartment, IzhikevichParams, Neuron, NeuronModel
 pub use plasticity::{HomeostaticScaler, StdpParams, StdpSynapse, ThreeFactorStdp};
 pub use signal::{OscillationBand, SpikeTrain};
 pub use synapse::{AxonalDelayBuffer, ChemicalSynapse, GapJunction, ReceptorType, Synapse, TsodyksMarkram};
-pub use types::{CompartmentId, CompartmentKind, NetworkId, NeuronId, NeuronType, SynapseId};
+pub use types::{CompartmentId, CompartmentKind, GlialId, NetworkId, NeuronId, NeuronType, SynapseId};
 
 #[cfg(test)]
 mod tests {
@@ -227,5 +229,17 @@ mod tests {
         let c_near = vt.concentration_at(1e6, 5.0, 10.0);
         let c_far = vt.concentration_at(1e6, 50.0, 10.0);
         assert!(c_near > c_far, "Concentration near release site must exceed distant concentration!");
+    }
+
+    #[test]
+    fn test_astrocyte_and_microglia_dynamics() {
+        let mut astro = Astrocyte::new(GlialId(0), [0.0, 0.0, 0.0]);
+        astro.step(2.0, 10.0);
+        assert!(astro.ca_intracellular_um > 0.1, "Glutamate must elevate astrocytic Ca2+!");
+
+        let mut micro = Microglia::new(GlialId(1), [10.0, 10.0, 0.0]);
+        assert_eq!(micro.state, MicrogliaState::RamifiedSurveillance);
+        micro.step_activation(0.9, 0.0);
+        assert_eq!(micro.state, MicrogliaState::M1ProInflammatory);
     }
 }

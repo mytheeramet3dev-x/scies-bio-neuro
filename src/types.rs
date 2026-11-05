@@ -18,6 +18,11 @@ pub struct SynapseId(pub usize);
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct CompartmentId(pub usize);
 
+/// Unique identifier for a glial cell.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+pub struct GlialId(pub usize);
+
 /// Unique identifier for a brain region or sub-network.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
